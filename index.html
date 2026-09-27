@@ -1,0 +1,589 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Shahd at 21</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Aref+Ruqaa:wght@400;700&family=Amiri:ital@0;1&family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Pinyon+Script&display=swap">
+<style>
+:root{
+  color-scheme:dark;
+  --night:#1c0a11;
+  --wine:#34131f;
+  --wine-2:#4a1c2c;
+  --rose:#e08a9b;
+  --blush:#f6e1dc;
+  --gold:#dcb870;
+  --gold-soft:rgba(220,184,112,.35);
+  --muted:#c3a3a9;
+  --script:"Pinyon Script","Snell Roundhand",cursive;
+  --serif:"Cormorant Garamond","Iowan Old Style",Georgia,serif;
+  --ar:"Aref Ruqaa","Amiri","Traditional Arabic",serif;
+  --ar-body:"Amiri","Traditional Arabic",serif;
+}
+*{box-sizing:border-box}
+[hidden]{display:none!important}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--night);color:var(--blush);
+  font-family:var(--serif);font-size:20px;line-height:1.6;
+  padding-inline:16px;overflow-x:hidden;
+  background-image:
+    radial-gradient(ellipse 80% 50% at 50% 0%, rgba(224,138,155,.16), transparent 70%),
+    radial-gradient(ellipse 60% 40% at 100% 60%, rgba(220,184,112,.07), transparent 70%);
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+.ar{font-family:var(--ar);direction:rtl}
+.wrap{max-width:980px;margin-inline:auto}
+img{max-width:100%;display:block}
+canvas#sky{position:fixed;inset:0;width:100%;height:100%;pointer-events:none;z-index:0}
+main{position:relative;z-index:1}
+
+/* HERO */
+.hero{text-align:center;padding-block:72px 40px;display:grid;gap:18px;justify-items:center}
+.hero .ar-top{font-size:clamp(26px,5vw,36px);color:var(--gold);letter-spacing:0}
+.hero h1{margin:0;font-family:var(--script);font-weight:400;font-size:clamp(84px,19vw,180px);line-height:.9;color:var(--blush);
+  text-shadow:0 0 40px rgba(224,138,155,.35)}
+.hero .sub{font-style:italic;font-size:clamp(20px,3.4vw,26px);color:var(--muted);margin:0;text-wrap:balance}
+.hero .sub b{color:var(--gold);font-weight:500;font-style:normal}
+.hero-photo{width:min(300px,78vw);aspect-ratio:3/4;margin-top:8px;border-radius:999px 999px 18px 18px;overflow:hidden;
+  border:1.5px solid var(--gold);box-shadow:0 0 0 8px rgba(220,184,112,.08),0 30px 80px rgba(0,0,0,.5)}
+.hero-photo img{width:100%;height:100%;object-fit:cover}
+.count{display:flex;flex-wrap:wrap;justify-content:center;gap:10px 28px;margin-top:10px;font-variant-numeric:tabular-nums}
+.count div{display:grid;justify-items:center;line-height:1.1}
+.count strong{font-size:34px;font-weight:500;color:var(--blush)}
+.count span{font-size:13px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted)}
+.cue{margin-top:14px;color:var(--gold);text-decoration:none;font-size:15px;letter-spacing:.2em;text-transform:uppercase;
+  border:1px solid var(--gold-soft);padding:10px 22px;border-radius:999px;transition:background .3s}
+.cue:hover,.cue:focus-visible{background:rgba(220,184,112,.12);outline:none}
+
+/* SECTION HEADS */
+.head{text-align:center;display:grid;gap:4px;padding-block:64px 28px}
+.head .ar{font-size:clamp(34px,6vw,48px);color:var(--gold);line-height:1.3}
+.head h2{margin:0;font-weight:400;font-style:italic;font-size:clamp(22px,3.5vw,28px);color:var(--muted);text-wrap:balance}
+.orn{width:120px;height:14px;margin:10px auto 0;color:var(--gold)}
+
+/* TIMELINE */
+.story{position:relative;display:grid;gap:72px}
+.story::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:1px;
+  background:linear-gradient(var(--gold-soft),var(--gold-soft) 90%,transparent);transform:translateX(-.5px)}
+.ch{position:relative;display:grid;grid-template-columns:1fr 1fr;gap:48px;align-items:center}
+.ch::after{content:"";position:absolute;left:50%;top:50%;width:11px;height:11px;border-radius:50%;
+  background:var(--night);border:1.5px solid var(--gold);transform:translate(-50%,-50%) rotate(45deg);border-radius:2px}
+.ch:nth-child(even) .txt{order:2}
+.txt{display:grid;gap:6px;text-align:left}
+.date{font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);font-variant-numeric:tabular-nums}
+.date .ar{font-family:var(--ar-body);letter-spacing:0;text-transform:none;margin-left:12px;font-size:17px;display:inline-block}
+.txt .ar-t{font-family:var(--ar);font-size:clamp(28px,4.4vw,36px);color:var(--blush);direction:rtl;line-height:1.35}
+.txt h3{margin:0;font-weight:500;font-size:clamp(24px,3.4vw,30px);line-height:1.2;text-wrap:balance}
+.txt p{margin:4px 0 0;color:var(--muted);max-width:40ch}
+.ch:nth-child(odd) .txt{text-align:right;justify-items:end}
+.ch:nth-child(odd) .txt p{margin-left:auto}
+
+.pics{display:grid;gap:14px;grid-template-columns:repeat(2,1fr);align-items:start}
+.pics.one{grid-template-columns:1fr}
+.pics.three{grid-template-columns:repeat(2,1fr)}
+.pics.three figure:first-child{grid-column:1/-1}
+figure{margin:0;position:relative}
+.frame{overflow:hidden;border:1px solid var(--gold-soft);border-radius:14px;background:var(--wine);
+  box-shadow:0 18px 40px rgba(0,0,0,.35);cursor:zoom-in;transition:transform .5s cubic-bezier(.2,.7,.2,1)}
+.frame:hover{transform:translateY(-4px) rotate(-.4deg)}
+.frame img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s ease}
+.frame:hover img{transform:scale(1.04)}
+.arch{border-radius:999px 999px 14px 14px;border-color:var(--gold)}
+.p34{aspect-ratio:3/4}.p43{aspect-ratio:4/3}.p45{aspect-ratio:4/5}.p169{aspect-ratio:16/10}
+figcaption{font-size:15px;font-style:italic;color:var(--muted);margin-top:8px;line-height:1.35}
+figcaption .ar{font-family:var(--ar-body);font-style:normal;display:block;font-size:16px}
+
+/* INTERLUDE (distance) */
+.apart{grid-template-columns:1fr;text-align:center;justify-items:center;padding-block:24px;gap:26px}
+.apart::after{display:none}
+.apart{background:var(--night);border-block:1px solid var(--gold-soft);padding-block:40px!important}
+.apart .txt{text-align:center!important;justify-items:center!important}
+.apart .txt p{margin-inline:auto!important}
+.miles{font-family:var(--serif);font-size:clamp(60px,12vw,110px);line-height:1;color:var(--rose);font-weight:500;font-variant-numeric:tabular-nums}
+.miles small{display:block;font-size:14px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin-top:6px}
+.route{display:flex;align-items:center;gap:14px;font-size:15px;letter-spacing:.16em;text-transform:uppercase;color:var(--gold)}
+.route i{display:block;width:clamp(60px,20vw,180px);border-top:1.5px dashed var(--gold-soft)}
+.phones{display:flex;gap:20px;justify-content:center;align-items:center;flex-wrap:wrap}
+.phone{border:6px solid #0e0508;border-radius:34px;overflow:hidden;box-shadow:0 0 0 1px var(--gold-soft),0 24px 60px rgba(0,0,0,.5);cursor:zoom-in;background:#000}
+.phone.land{width:min(420px,88vw);aspect-ratio:2.18/1}
+.phone.port{width:min(200px,50vw);aspect-ratio:1/2.17}
+.phone img{width:100%;height:100%;object-fit:cover}
+.gap-months{border:1px solid var(--gold-soft);border-radius:999px;padding:6px 18px;font-size:15px;letter-spacing:.14em;text-transform:uppercase;color:var(--gold)}
+
+/* FAVOURITE */
+.fav{display:grid;justify-items:center;gap:22px;text-align:center}
+.fav .frame{width:min(760px,100%);aspect-ratio:16/9;border-color:var(--gold);border-radius:24px}
+.fav p{max-width:46ch;margin:0;color:var(--muted);font-style:italic}
+
+/* REASONS */
+.reasons{display:grid;justify-items:center;gap:18px}
+.card{width:min(560px,100%);min-height:230px;border:1px solid var(--gold);border-radius:22px;
+  background:linear-gradient(160deg,var(--wine-2),var(--wine));display:grid;place-items:center;text-align:center;
+  padding:34px 28px;position:relative;box-shadow:0 30px 70px rgba(0,0,0,.4)}
+.card .n{position:absolute;top:16px;left:22px;font-size:14px;letter-spacing:.2em;color:var(--gold);font-variant-numeric:tabular-nums}
+.card .q{font-size:clamp(24px,4vw,30px);line-height:1.35;font-style:italic;text-wrap:balance;transition:opacity .35s,transform .35s}
+.card .q.out{opacity:0;transform:translateY(8px)}
+.card .q .ar{display:block;font-style:normal;font-size:.9em;color:var(--gold);margin-top:10px}
+.btn{font-family:var(--serif);font-size:17px;letter-spacing:.1em;color:var(--night);background:var(--gold);border:0;
+  padding:12px 26px;border-radius:999px;cursor:pointer;transition:transform .2s,box-shadow .2s}
+.btn:hover{transform:translateY(-2px);box-shadow:0 10px 30px rgba(220,184,112,.3)}
+.btn:focus-visible,.frame:focus-visible,.phone:focus-visible{outline:2px solid var(--rose);outline-offset:4px}
+.btn.ghost{background:transparent;color:var(--gold);border:1px solid var(--gold-soft)}
+
+/* LETTER */
+.letter{width:min(680px,100%);margin-inline:auto;background:var(--blush);color:#3a1a24;border-radius:6px;
+  padding:clamp(28px,6vw,60px);box-shadow:0 40px 90px rgba(0,0,0,.5);position:relative;
+  background-image:repeating-linear-gradient(transparent 0 35px,rgba(58,26,36,.06) 35px 36px)}
+.letter::before{content:"";position:absolute;inset:10px;border:1px solid rgba(160,110,60,.35);border-radius:3px;pointer-events:none}
+.letter .ar{font-size:30px;color:#8a3a4e;text-align:right;margin:0 0 10px;line-height:1.4}
+.letter p{margin:0 0 16px;font-size:21px;line-height:1.7}
+.letter .sign{font-family:var(--script);font-size:46px;color:#8a3a4e;margin:14px 0 0;line-height:1}
+.letter .ar-close{font-family:var(--ar);font-size:28px;color:#8a3a4e;direction:rtl;text-align:right;margin-top:6px}
+.seal{position:absolute;right:-14px;bottom:-14px;width:78px;height:78px;border-radius:50%;
+  background:radial-gradient(circle at 35% 30%,#c5566e,#7c2238 70%);display:grid;place-items:center;
+  color:var(--blush);font-family:var(--ar);font-size:30px;box-shadow:0 8px 20px rgba(0,0,0,.35)}
+
+/* CAKE */
+.cake-wrap{display:grid;justify-items:center;gap:22px;padding-bottom:40px;text-align:center}
+.cake{position:relative;width:min(420px,92vw);padding-top:48px}
+.candles{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 8px;padding-inline:18px;position:relative;z-index:2}
+.candle{width:8px;height:34px;border-radius:2px;background:repeating-linear-gradient(135deg,var(--blush) 0 5px,var(--rose) 5px 10px);position:relative;cursor:pointer;border:0;padding:0}
+.candle::before{content:"";position:absolute;left:50%;bottom:100%;width:10px;height:16px;margin-left:-5px;margin-bottom:2px;
+  border-radius:50% 50% 50% 50%/60% 60% 40% 40%;background:radial-gradient(circle at 50% 70%,#fff6d0,#ffc857 45%,rgba(255,120,60,.0) 72%);
+  animation:flick 1.4s ease-in-out infinite alternate;transition:opacity .4s, transform .4s}
+.candle.out::before{opacity:0;transform:scale(.2) translateY(-10px)}
+@keyframes flick{0%{transform:scaleY(1) rotate(-2deg)}100%{transform:scaleY(1.15) rotate(3deg)}}
+.tier{border-radius:14px 14px 8px 8px;margin-inline:auto;position:relative}
+.tier.t1{width:78%;height:70px;background:linear-gradient(var(--blush),#e9c6c1);margin-top:-4px}
+.tier.t2{width:100%;height:92px;background:linear-gradient(var(--rose),#b85a70);margin-top:-2px}
+.tier.t1::after,.tier.t2::after{content:"";position:absolute;left:0;right:0;top:0;height:14px;
+  background:radial-gradient(circle at 10px 0,var(--gold) 6px,transparent 7px) 0 0/20px 14px repeat-x;opacity:.9}
+.tier.t2 .ar{position:absolute;inset:0;display:grid;place-items:center;font-size:30px;color:var(--blush);padding-top:8px}
+.plate{height:10px;width:100%;background:var(--gold);border-radius:999px;opacity:.8}
+.wish{font-family:var(--ar);font-size:clamp(34px,7vw,56px);color:var(--gold);min-height:1.4em;line-height:1.4}
+.wish-en{margin:0;color:var(--muted);font-style:italic;min-height:1.6em}
+footer{text-align:center;color:var(--muted);font-size:15px;padding-block:30px 60px;font-style:italic}
+footer .ar{font-size:24px;color:var(--gold);font-style:normal}
+
+/* LIGHTBOX */
+.lb{position:fixed;inset:0;z-index:10;background:rgba(15,5,9,.94);display:grid;place-items:center;padding:24px;cursor:zoom-out}
+.lb img{max-height:86vh;max-width:100%;border-radius:10px;border:1px solid var(--gold-soft)}
+.lb p{position:absolute;bottom:calc(18px + env(safe-area-inset-bottom,0px));left:16px;right:16px;text-align:center;color:var(--blush);font-style:italic;margin:0}
+
+/* reveal: visible at rest, gentle lift when JS confirms */
+.rise{transition:opacity 1s ease,transform 1s cubic-bezier(.2,.7,.2,1)}
+.js .rise.pending{opacity:.001;transform:translateY(30px)}
+
+@media (max-width:760px){
+  body{font-size:18px}
+  .story::before{left:10px}
+  .ch{grid-template-columns:1fr;gap:18px;padding-left:34px}
+  .ch::after{left:10px;top:10px}
+  .ch:nth-child(even) .txt{order:0}
+  .ch:nth-child(odd) .txt{text-align:left;justify-items:start}
+  .ch:nth-child(odd) .txt p{margin-left:0}
+  .apart{padding-left:0}
+  .apart .txt{justify-items:center!important}
+}
+</style>
+</head>
+<body>
+
+
+<canvas id="sky" aria-hidden="true"></canvas>
+<main class="wrap">
+
+<section class="hero" id="top">
+  <div class="ar ar-top">كل سنة وانتي طيبة يا شهد</div>
+  <h1>Shahd</h1>
+  <p class="sub">Happy <b>21st</b> birthday to the girl who made two weeks feel like forever</p>
+  <div class="hero-photo"><img src="img/20.jpg" alt="Shahd and Mo, my favourite picture of us" style="object-position:48% 40%"></div>
+  <div class="count" aria-live="polite">
+    <div><strong id="cDays">0</strong><span>days since we met</span></div>
+    <div><strong id="cEng">0</strong><span>days engaged</span></div>
+    <div><strong>21</strong><span>years of you</span></div>
+  </div>
+  <p class="sub" id="bdayLine" style="font-size:19px"></p>
+  <a class="cue" href="#story">Read our story</a>
+</section>
+
+<section id="story">
+  <div class="head">
+    <div class="ar">حكايتنا</div>
+    <h2>Our story, one picture at a time</h2>
+    <svg class="orn" viewBox="0 0 120 14" fill="none" stroke="currentColor"><path d="M0 7h46M74 7h46"/><path d="M60 1l6 6-6 6-6-6z" fill="currentColor"/></svg>
+  </div>
+
+  <div class="story">
+
+    <article class="ch rise">
+      <div class="txt">
+        <div class="date">13 August 2025<span class="ar">١٣ أغسطس</span></div>
+        <div class="ar-t">أول صورة لينا</div>
+        <h3>The first picture</h3>
+        <p>The day we first spoke and first met. I didn't know yet that this photo was the first page of the rest of my life.</p>
+      </div>
+      <div class="pics one">
+        <figure><div class="frame arch p34" tabindex="0"><img src="img/01.jpg" alt="Our first picture together" loading="lazy" decoding="async"></div></figure>
+      </div>
+    </article>
+
+    <article class="ch rise">
+      <div class="txt">
+        <div class="date">18 August 2025<span class="ar">١٨ أغسطس</span></div>
+        <div class="ar-t">يوم ما طلبت إيدك</div>
+        <h3>The day I asked for your hand</h3>
+        <p>Five days after we met, I walked into your family's home and asked for you. I've never been so nervous, or so sure.</p>
+      </div>
+      <div class="pics one">
+        <figure><div class="frame arch p34" tabindex="0"><img src="img/21.jpg" alt="Sitting with your family the day I asked for your hand" loading="lazy" decoding="async" style="object-position:55% 30%"></div>
+          <figcaption>Sitting with your family, waiting for the answer</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="ch rise">
+      <div class="txt">
+        <div class="date">Late August 2025</div>
+        <div class="ar-t">اليوم اللي اخترنا فيه الدهب</div>
+        <h3>The day we chose the gold</h3>
+        <p>Standing in front of that mirror, trying to look calm while you picked out the shabka that would say you're mine.</p>
+      </div>
+      <div class="pics three">
+        <figure><div class="frame arch p45" tabindex="0"><img src="img/02.jpg" alt="The day we chose the gold" loading="lazy" decoding="async" style="object-position:50% 45%"></div></figure>
+        <figure><div class="frame p34" tabindex="0"><img src="img/03.jpg" alt="On our way to buy the gold" loading="lazy" decoding="async"></div>
+          <figcaption><span class="ar">في الطريق عشان نشتري الدهب</span>On our way to buy the gold</figcaption></figure>
+        <figure><div class="frame p34" tabindex="0"><img src="img/04.jpg" alt="In the convertible" loading="lazy" decoding="async"></div>
+          <figcaption>Sun, wind, and you</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="ch rise">
+      <div class="txt">
+        <div class="date">29 August 2025<span class="ar">٢٩ أغسطس</span></div>
+        <div class="ar-t">يوم خطوبتنا</div>
+        <h3>Our engagement day</h3>
+        <p>You in white, holding white roses, under the flowers. Sixteen days after we met. Some things you just know.</p>
+      </div>
+      <div class="pics three">
+        <figure><div class="frame arch p45" tabindex="0"><img src="img/05.jpg" alt="Engagement day under the flower arch" loading="lazy" decoding="async" style="object-position:50% 30%"></div></figure>
+        <figure><div class="frame p43" tabindex="0"><img src="img/06.jpg" alt="Our first picture after the engagement, showing our rings" loading="lazy" decoding="async"></div>
+          <figcaption><span class="ar">أول صورة بعد الخطوبة</span>First picture as fiancés</figcaption></figure>
+        <figure><div class="frame p43" tabindex="0"><img src="img/07.jpg" alt="The same week after the engagement" loading="lazy" decoding="async"></div>
+          <figcaption>That same week</figcaption></figure>
+      </div>
+    </article>
+
+    <article class="ch rise">
+      <div class="txt">
+        <div class="date">After the engagement</div>
+        <div class="ar-t">أول مرة نخرج لوحدنا</div>
+        <h3>Our first ride, just us</h3>
+        <p>The first time we went out alone. Night roads, no plans, just the two of us.</p>
+      </div>
+      <div class="pics one">
+        <figure><div class="frame p43" tabindex="0"><img src="img/08.jpg" alt="Our first car ride alone, at night" loading="lazy" decoding="async"></div></figure>
+      </div>
+    </article>
+
+    <article class="ch rise">
+      <div class="txt">
+        <div class="date">Before the distance</div>
+        <div class="ar-t">آخر يوم قبل السفر</div>
+        <h3>The last day before the UK</h3>
+        <p>We smiled for this one. Neither of us said how hard the goodbye was going to be.</p>
+      </div>
+      <div class="pics one">
+        <figure><div class="frame p43" tabindex="0"><img src="img/09.jpg" alt="Our last day before the long distance" loading="lazy" decoding="async"></div></figure>
+      </div>
+    </article>
+
+    <article class="ch apart rise">
+      <div class="route"><span>Egypt</span><i></i><span>♥</span><i></i><span>UK</span></div>
+      <div class="miles">5<small>months apart</small></div>
+      <div class="txt">
+        <div class="ar-t">بنحب بعض من بعيد</div>
+        <h3>Loving from a distance</h3>
+        <p>A screen between us, two time zones, and somehow you still made every call feel like being next to you.</p>
+      </div>
+      <div class="phones">
+        <div class="phone land" tabindex="0"><img src="img/10.jpg" alt="FaceTime, both of us doing peace signs" loading="lazy" decoding="async"></div>
+        <div class="phone port" tabindex="0"><img src="img/11.jpg" alt="FaceTime, making a heart together with our hands" loading="lazy" decoding="async"></div>
+        <div class="phone port" tabindex="0"><img src="img/22.jpg" alt="FaceTime, both of us smiling" loading="lazy" decoding="async"></div>
+      </div>
+    </article>
+
+    <article class="ch rise">
+      <div class="txt">
+        <div class="date">Five months later</div>
+        <div class="ar-t">أول مرة نشوف بعض بعد ٥ شهور</div>
+        <h3>Together again</h3>
+        <p>The first time I saw you after five months. Your hand in mine, like it had never left.</p>
+      </div>
+      <div class="pics one">
+        <figure><div class="frame p169" tabindex="0"><img src="img/12.jpg" alt="Seeing each other again after five months" loading="lazy" decoding="async"></div></figure>
+      </div>
+    </article>
+
+    <article class="ch rise">
+      <div class="txt">
+        <div class="ar-t">أول خروجة لينا</div>
+        <h3>Our first date</h3>
+        <p>A café, a mirror, a leather jacket, and you in burgundy. I still look at this one when I miss you.</p>
+      </div>
+      <div class="pics one">
+        <figure><div class="frame arch p34" tabindex="0"><img src="img/13.jpg" alt="Our first date at a café" loading="lazy" decoding="async" style="object-position:50% 60%"></div></figure>
+      </div>
+    </article>
+
+    <article class="ch rise">
+      <div class="txt">
+        <div class="ar-t">تاني خروجة، السينما</div>
+        <h3>Our second date, the cinema</h3>
+        <p>The houndstooth coat, the shop mirror, the dark cinema, and that face you pulled at the table. My favourite kind of day.</p>
+      </div>
+      <div class="pics three">
+        <figure><div class="frame p169" tabindex="0"><img src="img/16.jpg" alt="At the table, the same day" loading="lazy" decoding="async"></div></figure>
+        <figure><div class="frame p34" tabindex="0"><img src="img/14.jpg" alt="Mirror picture in the shop" loading="lazy" decoding="async"></div></figure>
+        <figure><div class="frame p34" tabindex="0"><img src="img/15.jpg" alt="In the cinema" loading="lazy" decoding="async"></div></figure>
+      </div>
+    </article>
+
+    <article class="ch rise">
+      <div class="txt">
+        <div class="ar-t">آخر صورة لينا</div>
+        <h3>Our last picture together</h3>
+        <p>The last one from that trip. Your head on mine, holding on a little longer.</p>
+      </div>
+      <div class="pics one">
+        <figure><div class="frame p169" tabindex="0"><img src="img/17.jpg" alt="Our last picture together from that trip" loading="lazy" decoding="async"></div></figure>
+      </div>
+    </article>
+
+    <article class="ch apart rise">
+      <div class="route"><span>UK</span><i></i><span>♥</span><i></i><span>Egypt</span></div>
+      <div class="miles">7<small>more months apart</small></div>
+      <div class="txt">
+        <div class="ar-t">والمسافة ما غيرتش حاجة</div>
+        <h3>And the distance changed nothing</h3>
+        <p>Seven months of calls, messages, and counting the days. You waited for me, again.</p>
+      </div>
+    </article>
+
+    <article class="ch rise">
+      <div class="txt">
+        <div class="date">Seven months later</div>
+        <div class="ar-t">أول صورة بعد ٧ شهور</div>
+        <h3>Home, finally</h3>
+        <p>The first picture of us after seven months. Look how happy we are.</p>
+      </div>
+      <div class="pics one">
+        <figure><div class="frame p169" tabindex="0"><img src="img/18.jpg" alt="Our first picture after seven months apart" loading="lazy" decoding="async"></div></figure>
+      </div>
+    </article>
+
+    <article class="ch rise">
+      <div class="txt">
+        <div class="ar-t">بنحتفل ببعض</div>
+        <h3>Celebrating each other</h3>
+        <p>Two caps, one mirror. Every win is better when it's ours.</p>
+      </div>
+      <div class="pics one">
+        <figure><div class="frame arch p34" tabindex="0"><img src="img/19.jpg" alt="Celebrating each other in graduation caps" loading="lazy" decoding="async" style="object-position:40% 55%"></div></figure>
+      </div>
+    </article>
+
+
+    <article class="ch rise">
+      <div class="txt">
+        <div class="ar-t">أول فرح نتعزم عليه سوا</div>
+        <h3>The first wedding we were invited to, together</h3>
+        <p>Matching in black, looking at each other instead of the camera. One day soon it'll be our turn.</p>
+      </div>
+      <div class="pics one">
+        <figure><div class="frame arch p34" tabindex="0"><img src="img/25.jpg" alt="At the first wedding we were invited to together" loading="lazy" decoding="async" style="object-position:50% 55%"></div></figure>
+      </div>
+    </article>
+
+    <article class="ch rise">
+      <div class="txt">
+        <div class="date">August 2026</div>
+        <div class="ar-t">سنة من حبنا</div>
+        <h3>One year of us</h3>
+        <p>Red roses, your hand in mine, and a ribbon that said it all. The first year of forever.</p>
+      </div>
+      <div class="pics">
+        <figure><div class="frame p34" tabindex="0"><img src="img/23.jpg" alt="Our one year anniversary, you holding red roses" loading="lazy" decoding="async" style="object-position:60% 55%"></div>
+          <figcaption><span class="ar">أول سنة لينا مع بعض</span>Our first anniversary</figcaption></figure>
+        <figure><div class="frame p34" tabindex="0"><img src="img/24.jpg" alt="Holding hands next to the One year of us roses" loading="lazy" decoding="async" style="object-position:50% 60%"></div>
+          <figcaption>“One year of us”</figcaption></figure>
+      </div>
+    </article>
+  </div>
+</section>
+
+<section id="fav">
+  <div class="head">
+    <div class="ar">صورتي المفضلة</div>
+    <h2>My favourite picture of us</h2>
+  </div>
+  <div class="fav rise">
+    <div class="frame" tabindex="0"><img src="img/20.jpg" alt="My favourite picture of us" loading="lazy" decoding="async"></div>
+    <p>If someone asked me what happiness looks like, I'd show them this.</p>
+  </div>
+</section>
+
+<section id="reasons">
+  <div class="head">
+    <div class="ar">ليه بحبك</div>
+    <h2>A few reasons I love you</h2>
+  </div>
+  <div class="reasons rise">
+    <div class="card" aria-live="polite">
+      <span class="n" id="rN">01 / 10</span>
+      <div class="q" id="rQ"></div>
+    </div>
+    <button class="btn" id="rBtn" type="button">Another reason</button>
+  </div>
+</section>
+
+<section id="letter">
+  <div class="head">
+    <div class="ar">جواب ليكي</div>
+    <h2>A letter for you</h2>
+  </div>
+  <div class="letter rise">
+    <p class="ar">شهد، حبيبتي</p>
+    <p>Happy birthday, my love. Twenty-one years ago the world got you, and a little over a year ago, somehow, I did too.</p>
+    <p>I still think about how fast it happened. We met on the 13th of August, I asked for your hand five days later, and by the 29th you were my fiancée. People told us it was quick. It never felt quick to me. It felt like I had finally found something I had been looking for my whole life.</p>
+    <p>Then came the hardest part. Five months apart, then seven more. Screens instead of hands, time zones instead of dinners. You never once made me feel far away. You waited, you trusted, you kept choosing us, and every time I came back, you were exactly where I left you, smiling at me like no time had passed.</p>
+    <p>You are my calm, my home, and my favourite person to laugh with. I love the way you look at me in photos when you think I'm not looking. I love your patience, your heart, and how you make ordinary days feel like occasions.</p>
+    <p>The 29th has always been our number. It's the day we got engaged, and it's the day you came into this world. So on this 29th I want to promise you something: the distance is almost behind us, and everything we've waited for is ahead. I can't wait to build our life together.</p>
+    <p>Happy 21st, Shahd. I love you more than any website could ever hold.</p>
+    <p class="sign">Yours always, Mo</p>
+    <p class="ar-close">بحبك يا شهد ♥</p>
+    <div class="seal" aria-hidden="true">ش</div>
+  </div>
+</section>
+
+<section id="wish">
+  <div class="head">
+    <div class="ar">اتمني أمنية</div>
+    <h2>Twenty-one candles. Make a wish.</h2>
+  </div>
+  <div class="cake-wrap rise">
+    <div class="cake" aria-label="Birthday cake with 21 candles">
+      <div class="candles" id="candles"></div>
+      <div class="tier t1"></div>
+      <div class="tier t2"><span class="ar">٢١</span></div>
+      <div class="plate"></div>
+    </div>
+    <button class="btn" id="blow" type="button">Close your eyes and blow</button>
+    <div class="wish ar" id="wishAr" aria-live="polite"></div>
+    <p class="wish-en" id="wishEn"></p>
+  </div>
+</section>
+
+<footer>
+  <div class="ar">محمد و شهد</div>
+  Made with love for your 21st, 29 September 2026
+</footer>
+</main>
+
+<div class="lb" id="lb" hidden role="dialog" aria-label="Photo"><img id="lbImg" alt=""><p id="lbCap"></p></div>
+
+<script>
+document.documentElement.classList.add('js');
+const DAY=864e5;
+const met=new Date(2025,7,13), eng=new Date(2025,7,29);
+function upd(){
+  const now=new Date(), t=new Date(now.getFullYear(),now.getMonth(),now.getDate());
+  document.getElementById('cDays').textContent=Math.round((t-met)/DAY).toLocaleString();
+  document.getElementById('cEng').textContent=Math.round((t-eng)/DAY).toLocaleString();
+  let b=new Date(now.getFullYear(),8,29), line='';
+  const diff=Math.round((b-t)/DAY);
+  if(diff===0) line='Today is your day. The 29th, our number, again.';
+  else if(diff>0) line=diff===1?'Your birthday is tomorrow, the 29th, our number.':'Your birthday is in '+diff+' days, on the 29th, our number.';
+  else line='Born on a 29th, engaged on a 29th. The 29th will always be ours.';
+  document.getElementById('bdayLine').textContent=line;
+}
+upd();
+
+/* gentle reveal, content visible if observer never fires */
+const rises=[...document.querySelectorAll('.rise')];
+if('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.remove('pending');io.unobserve(e.target)}}),{rootMargin:'0px 0px -8% 0px'});
+  rises.forEach(r=>{const top=r.getBoundingClientRect().top; if(top>innerHeight){r.classList.add('pending');io.observe(r)}});
+  setTimeout(()=>rises.forEach(r=>r.classList.remove('pending')),12000);
+}
+
+/* lightbox */
+const lb=document.getElementById('lb'), lbImg=document.getElementById('lbImg'), lbCap=document.getElementById('lbCap');
+function openLb(el){const img=el.querySelector('img');lbImg.src=img.src;lbImg.alt=img.alt;lbCap.textContent=img.alt;lb.hidden=false}
+document.querySelectorAll('.frame,.phone').forEach(el=>{
+  el.addEventListener('click',()=>openLb(el));
+  el.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();openLb(el)}});
+});
+lb.addEventListener('click',()=>lb.hidden=true);
+addEventListener('keydown',e=>{if(e.key==='Escape')lb.hidden=true});
+
+/* reasons */
+const reasons=[
+  ["You made sixteen days feel like a lifetime of knowing each other.","من أول يوم حسيت إني أعرفك من زمان"],
+  ["You waited five months for me, then seven more, and never let the distance win.","استنتيني ومسبتنيش"],
+  ["Your smile on a FaceTime screen could fix my whole day.","ضحكتك بتصلّح يومي"],
+  ["The way you look at me in pictures when you think I'm looking at the camera.",""],
+  ["You turn a café, a car ride, or a shop mirror into a memory.",""],
+  ["You chose me, in front of your family, and keep choosing me every day.","اختارتيني وبتختاريني كل يوم"],
+  ["Your patience. I don't know anyone with a heart as calm as yours.",""],
+  ["That pout. You know the one.",""],
+  ["You make home feel like a person instead of a place.","انتي البيت"],
+  ["Because you're you, and there's only one Shahd.","مفيش غير شهد واحدة"]
+];
+let ri=0;const rQ=document.getElementById('rQ'),rN=document.getElementById('rN');
+function showR(){const [en,ar]=reasons[ri];rQ.innerHTML='';rQ.append(en);if(ar){const s=document.createElement('span');s.className='ar';s.textContent=ar;rQ.append(s)}
+  rN.textContent=String(ri+1).padStart(2,'0')+' / '+String(reasons.length).padStart(2,'0')}
+showR();
+document.getElementById('rBtn').addEventListener('click',()=>{rQ.classList.add('out');setTimeout(()=>{ri=(ri+1)%reasons.length;showR();rQ.classList.remove('out')},320)});
+
+/* candles */
+const cWrap=document.getElementById('candles');
+for(let i=0;i<21;i++){const c=document.createElement('button');c.className='candle';c.type='button';c.setAttribute('aria-label','Candle '+(i+1));
+  c.addEventListener('click',()=>{c.classList.add('out');check()});cWrap.append(c)}
+let done=false;
+function check(){if(!done && [...cWrap.children].every(c=>c.classList.contains('out'))){done=true;celebrate()}}
+document.getElementById('blow').addEventListener('click',()=>{
+  if(done){[...cWrap.children].forEach(c=>c.classList.remove('out'));done=false;document.getElementById('wishAr').textContent='';document.getElementById('wishEn').textContent='';document.getElementById('blow').textContent='Close your eyes and blow';return}
+  [...cWrap.children].forEach((c,i)=>setTimeout(()=>{c.classList.add('out');if(i===20)check()},i*70));
+});
+function celebrate(){
+  document.getElementById('wishAr').textContent='كل سنة وانتي طيبة يا شهد';
+  document.getElementById('wishEn').textContent='Happy 21st birthday, my love. May every wish come true, starting with us.';
+  document.getElementById('blow').textContent='Light them again';
+  burst();
+}
+
+/* sky: drifting gold specks + heart burst */
+const cv=document.getElementById('sky'),cx=cv.getContext('2d');let W,H,dpr=Math.min(devicePixelRatio||1,2);
+function rs(){W=cv.width=innerWidth*dpr;H=cv.height=innerHeight*dpr}rs();addEventListener('resize',rs);
+const reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
+const specks=Array.from({length:46},()=>({x:Math.random(),y:Math.random(),r:Math.random()*1.6+.4,s:Math.random()*.00025+.00008,p:Math.random()*6.28}));
+let parts=[];
+function heart(x,y,s,col,a){cx.save();cx.translate(x,y);cx.scale(s,s);cx.globalAlpha=a;cx.fillStyle=col;cx.beginPath();
+  cx.moveTo(0,3);cx.bezierCurveTo(-6,-2,-3,-8,0,-4);cx.bezierCurveTo(3,-8,6,-2,0,3);cx.fill();cx.restore()}
+function burst(){const cols=['#dcb870','#e08a9b','#f6e1dc'];
+  for(let i=0;i<140;i++){const a=Math.random()*6.28,v=(Math.random()*9+3)*dpr;
+    parts.push({x:W/2,y:H*.55,vx:Math.cos(a)*v,vy:Math.sin(a)*v-6*dpr,life:1,s:(Math.random()*1.4+.8)*dpr,c:cols[i%3],rot:0})}}
+function loop(t){cx.clearRect(0,0,W,H);
+  specks.forEach(p=>{if(!reduce)p.y-=p.s;if(p.y<-.02)p.y=1.02;const tw=.35+.35*Math.sin(t/900+p.p);
+    cx.globalAlpha=tw;cx.fillStyle='#dcb870';cx.beginPath();cx.arc(p.x*W,p.y*H,p.r*dpr,0,6.28);cx.fill()});
+  parts=parts.filter(p=>p.life>0);parts.forEach(p=>{p.vy+=.25*dpr;p.vx*=.985;p.x+=p.vx;p.y+=p.vy;p.life-=.008;heart(p.x,p.y,p.s,p.c,Math.max(p.life,0))});
+  cx.globalAlpha=1;requestAnimationFrame(loop)}
+requestAnimationFrame(loop);
+</script>
+
+</body>
+</html>
